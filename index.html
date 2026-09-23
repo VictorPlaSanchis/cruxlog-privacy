@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CruxLog · Política de privacitat</title>
+<style>
+  :root {
+    --bg: #fafaf8; --fg: #1d1d1b; --muted: #5f5f5a; --line: #e2e1dc;
+    --accent: #c2410c; --chip: #efeee9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #161615; --fg: #ecebe6; --muted: #a3a29c; --line: #2d2d2a;
+      --accent: #fb923c; --chip: #232321;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 44rem; margin: 0 auto; padding: 2rem 1rem 4rem; }
+  nav { display: flex; gap: .5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  nav button {
+    font: inherit; border: 1px solid var(--line); background: var(--chip);
+    color: var(--fg); padding: .35rem .9rem; border-radius: 999px; cursor: pointer;
+  }
+  nav button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+  h1 { font-size: 1.8rem; line-height: 1.2; margin: 0 0 .5rem; }
+  h2 { font-size: 1.15rem; margin: 2rem 0 .5rem; }
+  .meta { color: var(--muted); margin: 0 0 1.5rem; }
+  a { color: var(--accent); }
+  ul { padding-left: 1.25rem; }
+  li { margin: .25rem 0; }
+  section[lang] { display: none; }
+  section[lang].active { display: block; }
+</style>
+</head>
+<body>
+<main>
+<nav aria-label="Idioma / Language">
+  <button type="button" data-lang="ca">Català</button>
+  <button type="button" data-lang="es">Castellano</button>
+  <button type="button" data-lang="en">English</button>
+</nav>
+
+<!-- ─────────────────────────── CATALÀ ─────────────────────────── -->
+<section lang="ca">
+<h1>Política de privacitat de CruxLog</h1>
+<p class="meta">Última actualització: 23 de setembre de 2026<br>
+Responsable: Victor Pla, desenvolupador de CruxLog —
+<a href="mailto:climbingtrainingnoreply@gmail.com">climbingtrainingnoreply@gmail.com</a></p>
+
+<h2>Qui tracta les dades</h2>
+<p>CruxLog és una aplicació per registrar l'entrenament d'escalada. Les dades es desen en un servidor
+propi gestionat per qui publica l'aplicació. No hi ha publicitat, no es venen dades i no s'hi fa servir
+cap servei d'analítica ni de seguiment.</p>
+
+<h2>Quines dades es recullen</h2>
+<p><strong>Del compte</strong>, per poder-hi entrar i recuperar-lo:</p>
+<ul>
+  <li>Nom d'usuari i adreça de correu electrònic.</li>
+  <li>Contrasenya, desada sempre xifrada amb una funció de derivació de clau; ningú no la pot llegir.</li>
+</ul>
+<p><strong>De l'entrenament</strong>, que és el contingut que la persona hi escriu:</p>
+<ul>
+  <li>Sessions: data, tipus, durada, esforç percebut, valoració, comentaris, objectiu, disciplina i lloc.</li>
+  <li>Exercicis (sèries, repeticions, càrrega) i vies (grau, intents, estil d'encadenament).</li>
+  <li>Mesures corporals opcionals: pes, massa muscular, greix i massa òssia.</li>
+  <li>Perfil d'atleta: dades antropomètriques i d'experiència que la persona decideixi introduir.</li>
+</ul>
+<p><strong>De les comunitats</strong>, si se'n crea o s'hi entra: el nom i, si se'n posen, la icona i la
+imatge de fons (triades expressament de la galeria); qui n'és membre i amb quin rol; els comentaris a les
+sessions i els missatges del xat.</p>
+<p><strong>Al dispositiu</strong> es desen el testimoni de la sessió iniciada i les preferències d'idioma,
+d'aspecte i de notificacions. No surten del telèfon ni entren a cap còpia de seguretat al núvol.</p>
+<p>L'aplicació <strong>no</strong> recull ubicació, contactes, identificadors de publicitat ni informació
+del dispositiu, i no llegeix la galeria: només puja la imatge que es tria com a icona o fons d'una comunitat.</p>
+
+<h2>Notificacions</h2>
+<p>Si s'activen, l'aplicació consulta periòdicament el servidor propi per saber si hi ha novetats a les
+comunitats (comentaris, missatges, membres nous) i les mostra com a notificació al telèfon. No s'utilitza
+cap servei de notificacions de tercers. Es poden desactivar des de l'aplicació o des del sistema.</p>
+
+<h2>Per a què es fan servir</h2>
+<p>Únicament per prestar el servei: desar el registre d'entrenament, mostrar-ne les analítiques, fer
+funcionar les comunitats i mantenir la sessió oberta. El correu s'usa per verificar el compte i restablir
+la contrasenya; no s'envien comunicacions comercials.</p>
+
+<h2>Amb qui es comparteixen</h2>
+<p>No es venen ni es cedeixen a tercers. Les dades viatgen entre l'aplicació i el servidor sempre per una
+connexió xifrada (HTTPS).</p>
+<p>L'única excepció és voluntària:</p>
+<ul>
+  <li><strong>Comunitats</strong> (voluntari): els membres es veuen entre ells el nom d'usuari i les
+    sessions d'entrenament, poden comentar-les i comparteixen un xat. Només hi entra qui accepta un convit
+    i se'n pot sortir en qualsevol moment. El correu no es mostra mai a ningú.</li>
+</ul>
+
+<h2>Quant de temps es conserven</h2>
+<p>Mentre el compte existeixi. Des de <em>Perfil → Esborrar el compte</em> es pot eliminar el compte; és
+immediat i irreversible, i elimina totes les dades d'entrenament, les pertinences a comunitats, els
+comentaris i les comunitats creades per la persona. També es pot demanar l'esborrat per correu a l'adreça
+de contacte.</p>
+
+<h2>Drets</h2>
+<p>Qualsevol persona pot accedir a les seves dades, corregir-les i esborrar-les des de l'aplicació. Per a
+qualsevol altra petició (accés, portabilitat, oposició…) escriu a
+<a href="mailto:climbingtrainingnoreply@gmail.com">climbingtrainingnoreply@gmail.com</a>. També es pot
+presentar una reclamació davant l'autoritat de protecció de dades competent.</p>
+
+<h2>Menors</h2>
+<p>L'aplicació no està dirigida a menors de 13 anys i no en recull dades conscientment.</p>
+
+<h2>Canvis</h2>
+<p>Qualsevol modificació es publicarà en aquesta mateixa adreça, amb la data d'actualització al capdamunt.</p>
+</section>
+
+<!-- ─────────────────────────── CASTELLANO ─────────────────────────── -->
+<section lang="es">
+<h1>Política de privacidad de CruxLog</h1>
+<p class="meta">Última actualización: 23 de septiembre de 2026<br>
+Responsable: Victor Pla, desarrollador de CruxLog —
+<a href="mailto:climbingtrainingnoreply@gmail.com">climbingtrainingnoreply@gmail.com</a></p>
+
+<h2>Quién trata los datos</h2>
+<p>CruxLog es una aplicación para registrar el entrenamiento de escalada. Los datos se guardan en un
+servidor propio gestionado por quien publica la aplicación. No hay publicidad, no se venden datos y no se
+usa ningún servicio de analítica ni de seguimiento.</p>
+
+<h2>Qué datos se recogen</h2>
+<p><strong>De la cuenta</strong>, para poder acceder y recuperarla:</p>
+<ul>
+  <li>Nombre de usuario y dirección de correo electrónico.</li>
+  <li>Contraseña, guardada siempre cifrada con una función de derivación de clave; nadie puede leerla.</li>
+</ul>
+<p><strong>Del entrenamiento</strong>, que es el contenido que la persona escribe:</p>
+<ul>
+  <li>Sesiones: fecha, tipo, duración, esfuerzo percibido, valoración, comentarios, objetivo, disciplina y lugar.</li>
+  <li>Ejercicios (series, repeticiones, carga) y vías (grado, intentos, estilo de encadenamiento).</li>
+  <li>Medidas corporales opcionales: peso, masa muscular, grasa y masa ósea.</li>
+  <li>Perfil de atleta: datos antropométricos y de experiencia que la persona decida introducir.</li>
+</ul>
+<p><strong>De las comunidades</strong>, si se crea o se entra en alguna: el nombre y, si se ponen, el icono
+y la imagen de fondo (elegidos expresamente de la galería); quién es miembro y con qué rol; los comentarios
+en las sesiones y los mensajes del chat.</p>
+<p><strong>En el dispositivo</strong> se guardan el token de la sesión iniciada y las preferencias de idioma,
+aspecto y notificaciones. No salen del teléfono ni entran en ninguna copia de seguridad en la nube.</p>
+<p>La aplicación <strong>no</strong> recoge ubicación, contactos, identificadores de publicidad ni
+información del dispositivo, y no lee la galería: solo sube la imagen elegida como icono o fondo de una
+comunidad.</p>
+
+<h2>Notificaciones</h2>
+<p>Si se activan, la aplicación consulta periódicamente el servidor propio para saber si hay novedades en
+las comunidades (comentarios, mensajes, miembros nuevos) y las muestra como notificación en el teléfono. No
+se usa ningún servicio de notificaciones de terceros. Pueden desactivarse desde la aplicación o desde el
+sistema.</p>
+
+<h2>Para qué se usan</h2>
+<p>Únicamente para prestar el servicio: guardar el registro de entrenamiento, mostrar sus analíticas, hacer
+funcionar las comunidades y mantener la sesión abierta. El correo se usa para verificar la cuenta y
+restablecer la contraseña; no se envían comunicaciones comerciales.</p>
+
+<h2>Con quién se comparten</h2>
+<p>No se venden ni se ceden a terceros. Los datos viajan entre la aplicación y el servidor siempre por una
+conexión cifrada (HTTPS).</p>
+<p>La única excepción es voluntaria:</p>
+<ul>
+  <li><strong>Comunidades</strong> (voluntario): los miembros ven entre sí el nombre de usuario y las
+    sesiones de entrenamiento, pueden comentarlas y comparten un chat. Solo entra quien acepta una
+    invitación, y se puede salir en cualquier momento. El correo nunca se muestra a nadie.</li>
+</ul>
+
+<h2>Cuánto tiempo se conservan</h2>
+<p>Mientras exista la cuenta. Desde <em>Perfil → Borrar la cuenta</em> se puede eliminar; es inmediato e
+irreversible, y elimina todos los datos de entrenamiento, las membresías, los comentarios y las comunidades
+creadas por la persona. También puede solicitarse el borrado por correo a la dirección de contacto.</p>
+
+<h2>Derechos</h2>
+<p>Cualquier persona puede acceder a sus datos, corregirlos y borrarlos desde la aplicación. Para cualquier
+otra solicitud (acceso, portabilidad, oposición…) escribe a
+<a href="mailto:climbingtrainingnoreply@gmail.com">climbingtrainingnoreply@gmail.com</a>. También puede
+presentarse una reclamación ante la autoridad de protección de datos competente.</p>
+
+<h2>Menores</h2>
+<p>La aplicación no está dirigida a menores de 13 años y no recoge conscientemente sus datos.</p>
+
+<h2>Cambios</h2>
+<p>Cualquier modificación se publicará en esta misma dirección, con la fecha de actualización al principio.</p>
+</section>
+
+<!-- ─────────────────────────── ENGLISH ─────────────────────────── -->
+<section lang="en">
+<h1>CruxLog Privacy Policy</h1>
+<p class="meta">Last updated: 23 September 2026<br>
+Controller: Victor Pla, developer of CruxLog —
+<a href="mailto:climbingtrainingnoreply@gmail.com">climbingtrainingnoreply@gmail.com</a></p>
+
+<h2>Who handles the data</h2>
+<p>CruxLog is an app for logging climbing training. Data is stored on a private server run by the app's
+publisher. There are no ads, no data is sold, and no analytics or tracking services are used.</p>
+
+<h2>What data is collected</h2>
+<p><strong>Account</strong>, so you can sign in and recover it:</p>
+<ul>
+  <li>Username and email address.</li>
+  <li>Password, always stored hashed with a key-derivation function; nobody can read it.</li>
+</ul>
+<p><strong>Training</strong>, i.e. the content you enter:</p>
+<ul>
+  <li>Sessions: date, type, duration, perceived effort, rating, notes, goal, discipline and location.</li>
+  <li>Exercises (sets, reps, load) and routes (grade, attempts, ascent style).</li>
+  <li>Optional body measurements: weight, muscle mass, fat and bone mass.</li>
+  <li>Athlete profile: anthropometric and experience data you choose to enter.</li>
+</ul>
+<p><strong>Communities</strong>, if you create or join one: its name and, if set, its icon and background
+image (explicitly picked from your gallery); who its members are and their role; comments on sessions and
+chat messages.</p>
+<p><strong>On the device</strong> the app stores your session token and your language, appearance and
+notification preferences. They never leave the phone and are excluded from cloud backups.</p>
+<p>The app does <strong>not</strong> collect location, contacts, advertising identifiers or device
+information, and does not read your gallery: it only uploads the image you choose as a community icon or
+background.</p>
+
+<h2>Notifications</h2>
+<p>If enabled, the app periodically checks its own server for community updates (comments, messages, new
+members) and shows them as phone notifications. No third-party push service is used. You can turn them off
+in the app or in system settings.</p>
+
+<h2>What it is used for</h2>
+<p>Only to provide the service: storing your training log, showing its analytics, running communities and
+keeping you signed in. Email is used to verify the account and reset the password; no marketing messages
+are sent.</p>
+
+<h2>Who it is shared with</h2>
+<p>Data is not sold or transferred to third parties. It always travels between the app and the server over
+an encrypted connection (HTTPS).</p>
+<p>The only exception is opt-in:</p>
+<ul>
+  <li><strong>Communities</strong> (opt-in): members see each other's username and training sessions, can
+    comment on them and share a chat. Only people who accept an invitation join, and you can leave at any
+    time. Your email is never shown to anyone.</li>
+</ul>
+
+<h2>How long it is kept</h2>
+<p>For as long as the account exists. You can delete it from <em>Profile → Delete account</em>; this is
+immediate and irreversible and removes all training data, community memberships, comments and communities
+you created. You can also request deletion by email at the contact address.</p>
+
+<h2>Your rights</h2>
+<p>You can access, correct and delete your data from within the app. For any other request (access,
+portability, objection…) write to
+<a href="mailto:climbingtrainingnoreply@gmail.com">climbingtrainingnoreply@gmail.com</a>. You may also
+lodge a complaint with the competent data protection authority.</p>
+
+<h2>Children</h2>
+<p>The app is not directed at children under 13 and does not knowingly collect their data.</p>
+
+<h2>Changes</h2>
+<p>Any changes will be published at this same address, with the update date at the top.</p>
+</section>
+</main>
+<script>
+  (function () {
+    var langs = ["ca", "es", "en"];
+    function show(lang) {
+      document.querySelectorAll("section[lang]").forEach(function (s) {
+        s.classList.toggle("active", s.lang === lang);
+      });
+      document.querySelectorAll("nav button").forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.dataset.lang === lang));
+      });
+      document.documentElement.lang = lang;
+    }
+    var fromHash = location.hash.slice(1);
+    var fromBrowser = (navigator.language || "").slice(0, 2);
+    show(langs.indexOf(fromHash) >= 0 ? fromHash
+       : langs.indexOf(fromBrowser) >= 0 ? fromBrowser : "ca");
+    document.querySelectorAll("nav button").forEach(function (b) {
+      b.addEventListener("click", function () {
+        show(b.dataset.lang);
+        history.replaceState(null, "", "#" + b.dataset.lang);
+      });
+    });
+  })();
+</script>
+</body>
+</html>
