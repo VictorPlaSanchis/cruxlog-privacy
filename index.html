@@ -48,14 +48,14 @@
 <!-- ─────────────────────────── CATALÀ ─────────────────────────── -->
 <section lang="ca">
 <h1>Política de privacitat de CruxLog</h1>
-<p class="meta">Última actualització: 23 de setembre de 2026<br>
+<p class="meta">Última actualització: 15 d'octubre de 2026<br>
 Responsable: Victor Pla, desenvolupador de CruxLog —
 <a href="mailto:climbingtrainingnoreply@gmail.com">climbingtrainingnoreply@gmail.com</a></p>
 
 <h2>Qui tracta les dades</h2>
 <p>CruxLog és una aplicació per registrar l'entrenament d'escalada. Les dades es desen en un servidor
-propi gestionat per qui publica l'aplicació. No hi ha publicitat, no es venen dades i no s'hi fa servir
-cap servei d'analítica ni de seguiment.</p>
+propi gestionat per qui publica l'aplicació. No es venen dades i no s'hi fa servir cap servei d'analítica.
+Els comptes bàsics (gratuïts) veuen anuncis; els premium, no (vegeu <em>Publicitat</em>).</p>
 
 <h2>Quines dades es recullen</h2>
 <p><strong>Del compte</strong>, per poder-hi entrar i recuperar-lo:</p>
@@ -72,16 +72,41 @@ cap servei d'analítica ni de seguiment.</p>
 </ul>
 <p><strong>De les comunitats</strong>, si se'n crea o s'hi entra: el nom i, si se'n posen, la icona i la
 imatge de fons (triades expressament de la galeria); qui n'és membre i amb quin rol; els comentaris a les
-sessions i els missatges del xat.</p>
-<p><strong>Al dispositiu</strong> es desen el testimoni de la sessió iniciada i les preferències d'idioma,
-d'aspecte i de notificacions. No surten del telèfon ni entren a cap còpia de seguretat al núvol.</p>
-<p>L'aplicació <strong>no</strong> recull ubicació, contactes, identificadors de publicitat ni informació
-del dispositiu, i no llegeix la galeria: només puja la imatge que es tria com a icona o fons d'una comunitat.</p>
+sessions i els missatges del xat. De les imatges se'n treuen totes les metadades (ubicació, càmera, data)
+abans de pujar-les, i el servidor també les neteja en rebre-les.</p>
+<p><strong>De l'entrenador d'IA</strong>, només si es fa servir: l'objectiu, els dies, minuts i material
+disponibles, el check-in del dia (energia, dolor i zones, temps) i les lesions que s'hi apuntin. Les lesions són
+<strong>dades de salut</strong>: només les veu el mateix compte, no surten mai a les comunitats i es poden esborrar
+en qualsevol moment. També es desen les propostes de l'entrenador i què se n'ha fet. Les calcula un servei que
+funciona al mateix servidor, sense cap tercer, i que no en desa cap dada.</p>
+<p><strong>Al dispositiu</strong> es desen el testimoni de la sessió iniciada, xifrat amb el magatzem de
+claus d'Android, i les preferències d'idioma, d'aspecte i de notificacions. No entren a cap còpia de
+seguretat al núvol.</p>
+<p><strong>Del pla premium</strong>, si es compra: el producte, les dates i l'estat de la subscripció, i el
+testimoni de compra que dona Google Play per comprovar-la. CruxLog no veu mai ni desa cap dada de pagament
+(targeta, compte bancari): el cobrament el fa Google Play.</p>
+<p>L'aplicació <strong>no</strong> recull ubicació ni contactes i no llegeix la galeria: només puja, sense
+metadades, la imatge que es tria com a icona o fons d'una comunitat. L'identificador de publicitat només el
+fan servir els anuncis dels comptes bàsics, i només amb el consentiment que es demana (vegeu
+<em>Publicitat</em>).</p>
 
 <h2>Notificacions</h2>
-<p>Si s'activen, l'aplicació consulta periòdicament el servidor propi per saber si hi ha novetats a les
-comunitats (comentaris, missatges, membres nous) i les mostra com a notificació al telèfon. No s'utilitza
-cap servei de notificacions de tercers. Es poden desactivar des de l'aplicació o des del sistema.</p>
+<p>Si s'activen, el telèfon rep les novetats de les comunitats (sessions, comentaris, missatges, convits,
+membres nous) i les mostra com a notificació. Per avisar-lo a l'instant es fa servir <strong>Firebase Cloud
+Messaging</strong> (Google): el servidor hi envia un avís buit, sense cap dada de la persona ni del contingut,
+adreçat a un identificador del dispositiu que genera Firebase. En rebre'l, l'aplicació pregunta les novetats
+al servidor propi i les mostra. A més, una tasca del sistema hi pregunta cada quinze minuts,
+aproximadament. Es poden desactivar des de l'aplicació o des del sistema; en tancar la sessió, el
+dispositiu es dona de baixa.</p>
+
+<h2>Publicitat</h2>
+<p>Els comptes bàsics veuen un bàner d'anuncis de <strong>Google AdMob</strong>. A l'Espai Econòmic Europeu,
+abans de mostrar-ne cap, l'aplicació demana el consentiment amb el formulari de Google, i des de
+<em>Perfil → Anuncis</em> es pot canviar el que s'hi va triar. Amb consentiment, Google pot fer servir
+l'identificador de publicitat del dispositiu per personalitzar els anuncis i mesurar-los; sense, mostra
+anuncis no personalitzats. CruxLog no envia a AdMob cap dada del compte ni de l'entrenament. Els comptes
+premium no veuen anuncis i no carreguen el servei. Més informació:
+<a href="https://policies.google.com/technologies/ads">com fa servir Google les dades a la publicitat</a>.</p>
 
 <h2>Per a què es fan servir</h2>
 <p>Únicament per prestar el servei: desar el registre d'entrenament, mostrar-ne les analítiques, fer
@@ -97,9 +122,20 @@ connexió xifrada (HTTPS).</p>
     sessions d'entrenament, poden comentar-les i comparteixen un xat. Només hi entra qui accepta un convit
     i se'n pot sortir en qualsevol moment. El correu no es mostra mai a ningú.</li>
 </ul>
+<p>Qui entra amb <strong>Google o Facebook</strong> (voluntari) fa que aquell proveïdor sàpiga que ha entrat a
+CruxLog, i CruxLog en rep l'identificador del compte i el correu verificat.</p>
+<p>Per prestar el servei, CruxLog fa servir aquests proveïdors, que tracten les dades només per encàrrec:</p>
+<ul>
+  <li><strong>Brevo</strong> (Sendinblue SAS, França): envia els correus de verificació i de recuperació de
+    contrasenya. Rep l'adreça de correu i el text del missatge.</li>
+  <li><strong>Google</strong>: Firebase Cloud Messaging (avisos al telèfon, vegeu <em>Notificacions</em>),
+    Google Play (cobrament del pla premium) i AdMob (anuncis dels comptes bàsics, vegeu
+    <em>Publicitat</em>).</li>
+</ul>
 
 <h2>Quant de temps es conserven</h2>
-<p>Mentre el compte existeixi. Des de <em>Perfil → Esborrar el compte</em> es pot eliminar el compte; és
+<p>Mentre el compte existeixi. Des de <em>Perfil → Eliminar el compte</em> es pot eliminar el compte,
+confirmant-ho amb la contrasenya o, si es va crear amb Google o Facebook, amb el mateix proveïdor; és
 immediat i irreversible, i elimina totes les dades d'entrenament, les pertinences a comunitats, els
 comentaris i les comunitats creades per la persona. També es pot demanar l'esborrat per correu a l'adreça
 de contacte.</p>
@@ -120,14 +156,14 @@ presentar una reclamació davant l'autoritat de protecció de dades competent.</
 <!-- ─────────────────────────── CASTELLANO ─────────────────────────── -->
 <section lang="es">
 <h1>Política de privacidad de CruxLog</h1>
-<p class="meta">Última actualización: 23 de septiembre de 2026<br>
+<p class="meta">Última actualización: 15 de octubre de 2026<br>
 Responsable: Victor Pla, desarrollador de CruxLog —
 <a href="mailto:climbingtrainingnoreply@gmail.com">climbingtrainingnoreply@gmail.com</a></p>
 
 <h2>Quién trata los datos</h2>
 <p>CruxLog es una aplicación para registrar el entrenamiento de escalada. Los datos se guardan en un
-servidor propio gestionado por quien publica la aplicación. No hay publicidad, no se venden datos y no se
-usa ningún servicio de analítica ni de seguimiento.</p>
+servidor propio gestionado por quien publica la aplicación. No se venden datos y no se usa ningún servicio
+de analítica. Las cuentas básicas (gratuitas) ven anuncios; las premium, no (véase <em>Publicidad</em>).</p>
 
 <h2>Qué datos se recogen</h2>
 <p><strong>De la cuenta</strong>, para poder acceder y recuperarla:</p>
@@ -144,18 +180,40 @@ usa ningún servicio de analítica ni de seguimiento.</p>
 </ul>
 <p><strong>De las comunidades</strong>, si se crea o se entra en alguna: el nombre y, si se ponen, el icono
 y la imagen de fondo (elegidos expresamente de la galería); quién es miembro y con qué rol; los comentarios
-en las sesiones y los mensajes del chat.</p>
-<p><strong>En el dispositivo</strong> se guardan el token de la sesión iniciada y las preferencias de idioma,
-aspecto y notificaciones. No salen del teléfono ni entran en ninguna copia de seguridad en la nube.</p>
-<p>La aplicación <strong>no</strong> recoge ubicación, contactos, identificadores de publicidad ni
-información del dispositivo, y no lee la galería: solo sube la imagen elegida como icono o fondo de una
-comunidad.</p>
+en las sesiones y los mensajes del chat. De las imágenes se eliminan todos los metadatos (ubicación,
+cámara, fecha) antes de subirlas, y el servidor también las limpia al recibirlas.</p>
+<p><strong>Del entrenador de IA</strong>, solo si se usa: el objetivo, los días, minutos y material
+disponibles, el check-in del día (energía, dolor y zonas, tiempo) y las lesiones que se anoten. Las lesiones son
+<strong>datos de salud</strong>: solo las ve la propia cuenta, nunca aparecen en las comunidades y se pueden borrar
+en cualquier momento. También se guardan las propuestas del entrenador y qué se hizo con ellas. Las calcula un
+servicio que funciona en el mismo servidor, sin terceros, y que no guarda ningún dato.</p>
+<p><strong>En el dispositivo</strong> se guardan el token de la sesión iniciada, cifrado con el almacén de
+claves de Android, y las preferencias de idioma, aspecto y notificaciones. No entran en ninguna copia de
+seguridad en la nube.</p>
+<p><strong>Del plan premium</strong>, si se compra: el producto, las fechas y el estado de la suscripción, y el
+token de compra que da Google Play para comprobarla. CruxLog nunca ve ni guarda ningún dato de pago (tarjeta,
+cuenta bancaria): el cobro lo hace Google Play.</p>
+<p>La aplicación <strong>no</strong> recoge ubicación ni contactos y no lee la galería: solo sube, sin
+metadatos, la imagen elegida como icono o fondo de una comunidad. El identificador de publicidad solo lo usan
+los anuncios de las cuentas básicas, y solo con el consentimiento que se pide (véase <em>Publicidad</em>).</p>
 
 <h2>Notificaciones</h2>
-<p>Si se activan, la aplicación consulta periódicamente el servidor propio para saber si hay novedades en
-las comunidades (comentarios, mensajes, miembros nuevos) y las muestra como notificación en el teléfono. No
-se usa ningún servicio de notificaciones de terceros. Pueden desactivarse desde la aplicación o desde el
-sistema.</p>
+<p>Si se activan, el teléfono recibe las novedades de las comunidades (sesiones, comentarios, mensajes,
+invitaciones, miembros nuevos) y las muestra como notificación. Para avisarle al instante se usa
+<strong>Firebase Cloud Messaging</strong> (Google): el servidor envía un aviso vacío, sin ningún dato de la
+persona ni del contenido, dirigido a un identificador del dispositivo que genera Firebase. Al recibirlo, la
+aplicación pregunta las novedades al servidor propio y las muestra. Además, una tarea del sistema pregunta
+cada quince minutos, aproximadamente. Pueden desactivarse desde la aplicación o desde el sistema; al cerrar
+la sesión, el dispositivo se da de baja.</p>
+
+<h2>Publicidad</h2>
+<p>Las cuentas básicas ven un banner de anuncios de <strong>Google AdMob</strong>. En el Espacio Económico
+Europeo, antes de mostrar ninguno, la aplicación pide el consentimiento con el formulario de Google, y desde
+<em>Perfil → Anuncios</em> se puede cambiar lo elegido. Con consentimiento, Google puede usar el
+identificador de publicidad del dispositivo para personalizar los anuncios y medirlos; sin él, muestra
+anuncios no personalizados. CruxLog no envía a AdMob ningún dato de la cuenta ni del entrenamiento. Las
+cuentas premium no ven anuncios ni cargan el servicio. Más información:
+<a href="https://policies.google.com/technologies/ads">cómo usa Google los datos en la publicidad</a>.</p>
 
 <h2>Para qué se usan</h2>
 <p>Únicamente para prestar el servicio: guardar el registro de entrenamiento, mostrar sus analíticas, hacer
@@ -171,9 +229,20 @@ conexión cifrada (HTTPS).</p>
     sesiones de entrenamiento, pueden comentarlas y comparten un chat. Solo entra quien acepta una
     invitación, y se puede salir en cualquier momento. El correo nunca se muestra a nadie.</li>
 </ul>
+<p>Quien entra con <strong>Google o Facebook</strong> (voluntario) hace que ese proveedor sepa que ha entrado en
+CruxLog, y CruxLog recibe el identificador de la cuenta y el correo verificado.</p>
+<p>Para prestar el servicio, CruxLog usa estos proveedores, que tratan los datos solo por encargo:</p>
+<ul>
+  <li><strong>Brevo</strong> (Sendinblue SAS, Francia): envía los correos de verificación y de recuperación de
+    contraseña. Recibe la dirección de correo y el texto del mensaje.</li>
+  <li><strong>Google</strong>: Firebase Cloud Messaging (avisos en el teléfono, véase
+    <em>Notificaciones</em>), Google Play (cobro del plan premium) y AdMob (anuncios de las cuentas básicas,
+    véase <em>Publicidad</em>).</li>
+</ul>
 
 <h2>Cuánto tiempo se conservan</h2>
-<p>Mientras exista la cuenta. Desde <em>Perfil → Borrar la cuenta</em> se puede eliminar; es inmediato e
+<p>Mientras exista la cuenta. Desde <em>Perfil → Eliminar la cuenta</em> se puede eliminar, confirmándolo
+con la contraseña o, si se creó con Google o Facebook, con el mismo proveedor; es inmediato e
 irreversible, y elimina todos los datos de entrenamiento, las membresías, los comentarios y las comunidades
 creadas por la persona. También puede solicitarse el borrado por correo a la dirección de contacto.</p>
 
@@ -193,13 +262,14 @@ presentarse una reclamación ante la autoridad de protección de datos competent
 <!-- ─────────────────────────── ENGLISH ─────────────────────────── -->
 <section lang="en">
 <h1>CruxLog Privacy Policy</h1>
-<p class="meta">Last updated: 23 September 2026<br>
+<p class="meta">Last updated: 15 October 2026<br>
 Controller: Victor Pla, developer of CruxLog —
 <a href="mailto:climbingtrainingnoreply@gmail.com">climbingtrainingnoreply@gmail.com</a></p>
 
 <h2>Who handles the data</h2>
 <p>CruxLog is an app for logging climbing training. Data is stored on a private server run by the app's
-publisher. There are no ads, no data is sold, and no analytics or tracking services are used.</p>
+publisher. No data is sold and no analytics services are used. Basic (free) accounts see ads; premium
+accounts don't (see <em>Advertising</em>).</p>
 
 <h2>What data is collected</h2>
 <p><strong>Account</strong>, so you can sign in and recover it:</p>
@@ -216,17 +286,38 @@ publisher. There are no ads, no data is sold, and no analytics or tracking servi
 </ul>
 <p><strong>Communities</strong>, if you create or join one: its name and, if set, its icon and background
 image (explicitly picked from your gallery); who its members are and their role; comments on sessions and
-chat messages.</p>
-<p><strong>On the device</strong> the app stores your session token and your language, appearance and
-notification preferences. They never leave the phone and are excluded from cloud backups.</p>
-<p>The app does <strong>not</strong> collect location, contacts, advertising identifiers or device
-information, and does not read your gallery: it only uploads the image you choose as a community icon or
-background.</p>
+chat messages. All metadata (location, camera, date) is removed from images before they are uploaded, and
+the server strips it again when it receives them.</p>
+<p><strong>From the AI coach</strong>, only if you use it: your goal, available days, minutes and
+equipment, the daily check-in (energy, pain and where, time) and any injuries you record. Injuries are
+<strong>health data</strong>: only your own account can see them, they never appear in communities and you can
+delete them at any time. The coach's proposals and what you did with them are also stored. They are computed by
+a service running on the same server, with no third parties, which keeps none of the data.</p>
+<p><strong>On the device</strong> the app stores your session token, encrypted with the Android keystore,
+and your language, appearance and notification preferences. They are excluded from cloud backups.</p>
+<p><strong>Premium plan</strong>, if you buy it: the product, the subscription's dates and status, and the
+purchase token Google Play provides to verify it. CruxLog never sees or stores any payment details (card,
+bank account): Google Play handles the payment.</p>
+<p>The app does <strong>not</strong> collect location or contacts and does not read your gallery: it only
+uploads, without metadata, the image you choose as a community icon or background. The advertising
+identifier is only used by the ads shown to basic accounts, and only with the consent the app asks for (see
+<em>Advertising</em>).</p>
 
 <h2>Notifications</h2>
-<p>If enabled, the app periodically checks its own server for community updates (comments, messages, new
-members) and shows them as phone notifications. No third-party push service is used. You can turn them off
-in the app or in system settings.</p>
+<p>If enabled, your phone receives community updates (sessions, comments, messages, invitations, new
+members) and shows them as notifications. To alert it instantly, <strong>Firebase Cloud Messaging</strong>
+(Google) is used: the server sends an empty alert, with no personal data or content, addressed to a device
+identifier generated by Firebase. When it arrives, the app asks its own server for updates and shows them.
+A system task also checks roughly every fifteen minutes. You can turn them off in the app or in system
+settings; signing out unregisters the device.</p>
+
+<h2>Advertising</h2>
+<p>Basic accounts see a <strong>Google AdMob</strong> banner. In the European Economic Area, before showing
+any ad, the app asks for consent with Google's form, and you can change your choice under <em>Profile →
+Ads</em>. With consent, Google may use the device's advertising identifier to personalise and measure ads;
+without it, it shows non-personalised ads. CruxLog sends no account or training data to AdMob. Premium
+accounts see no ads and don't load the service. More information:
+<a href="https://policies.google.com/technologies/ads">how Google uses data in advertising</a>.</p>
 
 <h2>What it is used for</h2>
 <p>Only to provide the service: storing your training log, showing its analytics, running communities and
@@ -242,9 +333,19 @@ an encrypted connection (HTTPS).</p>
     comment on them and share a chat. Only people who accept an invitation join, and you can leave at any
     time. Your email is never shown to anyone.</li>
 </ul>
+<p>If you sign in with <strong>Google or Facebook</strong> (opt-in), that provider learns that you signed in to
+CruxLog, and CruxLog receives your account identifier and verified email.</p>
+<p>To provide the service, CruxLog uses these processors, which handle data only on its behalf:</p>
+<ul>
+  <li><strong>Brevo</strong> (Sendinblue SAS, France): sends the verification and password-reset emails. It
+    receives your email address and the message text.</li>
+  <li><strong>Google</strong>: Firebase Cloud Messaging (phone alerts, see <em>Notifications</em>), Google
+    Play (premium plan payments) and AdMob (ads for basic accounts, see <em>Advertising</em>).</li>
+</ul>
 
 <h2>How long it is kept</h2>
-<p>For as long as the account exists. You can delete it from <em>Profile → Delete account</em>; this is
+<p>For as long as the account exists. You can delete it from <em>Profile → Delete account</em>, confirming
+with your password or, if the account was created with Google or Facebook, with that same provider; this is
 immediate and irreversible and removes all training data, community memberships, comments and communities
 you created. You can also request deletion by email at the contact address.</p>
 
