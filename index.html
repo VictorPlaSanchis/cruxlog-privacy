@@ -3,16 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CruxLog · Política de privacitat</title>
+<title>CruxLog · Registre i anàlisi de l'entrenament d'escalada</title>
+<meta name="description" content="CruxLog: registra les sessions d'escalada i d'entrenament, mira la forma i la fatiga, planifica la temporada i entrena amb els amics. Per a Android i per al navegador.">
+<link rel="icon" type="image/png" href="img/icon.png">
 <style>
   :root {
-    --bg: #fafaf8; --fg: #1d1d1b; --muted: #5f5f5a; --line: #e2e1dc;
-    --accent: #c2410c; --chip: #efeee9;
+    --bg: #f3f3f1; --panel: #ffffff; --fg: #1d1f22; --muted: #5f6166; --line: #dcdcd7;
+    --accent: #b83a32; --chip: #e9e9e5;
+    --mono: ui-monospace, "JetBrains Mono", "SF Mono", Consolas, monospace;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #161615; --fg: #ecebe6; --muted: #a3a29c; --line: #2d2d2a;
-      --accent: #fb923c; --chip: #232321;
+      --bg: #1d1f22; --panel: #25282c; --fg: #ecebe6; --muted: #a3a59f; --line: #34373c;
+      --accent: #e0574d; --chip: #2c2f33;
     }
   }
   * { box-sizing: border-box; }
@@ -20,354 +23,276 @@
     margin: 0; background: var(--bg); color: var(--fg);
     font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   }
-  main { max-width: 44rem; margin: 0 auto; padding: 2rem 1rem 4rem; }
-  nav { display: flex; gap: .5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  main { max-width: 60rem; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
+  a { color: var(--accent); }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: .6rem; font: 600 1.2rem var(--mono); }
+  .brand img { width: 36px; height: 36px; border-radius: 8px; }
+  nav { display: flex; gap: .4rem; flex-wrap: wrap; }
   nav button {
-    font: inherit; border: 1px solid var(--line); background: var(--chip);
-    color: var(--fg); padding: .35rem .9rem; border-radius: 999px; cursor: pointer;
+    font: .85rem var(--mono); border: 1px solid var(--line); background: var(--chip);
+    color: var(--fg); padding: .25rem .75rem; border-radius: 999px; cursor: pointer;
   }
   nav button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
-  h1 { font-size: 1.8rem; line-height: 1.2; margin: 0 0 .5rem; }
-  h2 { font-size: 1.15rem; margin: 2rem 0 .5rem; }
-  .meta { color: var(--muted); margin: 0 0 1.5rem; }
-  a { color: var(--accent); }
-  ul { padding-left: 1.25rem; }
-  li { margin: .25rem 0; }
-  section[lang] { display: none; }
-  section[lang].active { display: block; }
+  .hero { padding: 3rem 0 2rem; max-width: 40rem; }
+  .eyebrow { font: .8rem var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin: 0 0 .75rem; }
+  h1 { font-size: clamp(1.9rem, 5vw, 2.8rem); line-height: 1.15; margin: 0 0 1rem; }
+  h2 { font-size: 1.35rem; margin: 3rem 0 1rem; }
+  h3 { font: 600 1rem var(--mono); margin: 0 0 .35rem; }
+  .lead { font-size: 1.1rem; color: var(--muted); margin: 0 0 1.75rem; }
+  .cta { display: flex; gap: .75rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: .7rem 1.2rem; font: 600 .95rem var(--mono);
+    text-decoration: none; border: 1px solid var(--accent);
+  }
+  .btn.primary { background: var(--accent); color: #fff; }
+  .btn.secondary { color: var(--accent); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .grid > div { background: var(--panel); padding: 1.1rem 1.2rem; }
+  .grid p { margin: 0; color: var(--muted); font-size: .95rem; }
+  .shots {
+    display: flex; gap: 1rem; overflow-x: auto; padding: .5rem 0 1rem; margin-top: 2.5rem;
+    scroll-snap-type: x mandatory;
+  }
+  .shots img {
+    width: 200px; height: auto; flex: none; border: 1px solid var(--line);
+    scroll-snap-align: start;
+  }
+  .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; }
+  .plan { background: var(--panel); border: 1px solid var(--line); padding: 1.25rem; }
+  .plan.premium { border-color: var(--accent); }
+  .price { font: 600 1.6rem var(--mono); margin: .25rem 0; }
+  .price small { font-size: .85rem; color: var(--muted); font-weight: 400; }
+  .plan ul { padding-left: 1.1rem; margin: .75rem 0 0; }
+  .plan li { margin: .2rem 0; }
+  .note { color: var(--muted); font-size: .9rem; }
+  footer { margin-top: 3.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); font-size: .9rem; color: var(--muted); }
+  footer a { margin-right: 1rem; }
+  [data-lang-block] { display: none; }
+  [data-lang-block].active { display: block; }
 </style>
 </head>
 <body>
 <main>
-<nav aria-label="Idioma / Language">
-  <button type="button" data-lang="ca">Català</button>
-  <button type="button" data-lang="es">Castellano</button>
-  <button type="button" data-lang="en">English</button>
-</nav>
+<header>
+  <div class="brand"><img src="img/icon.png" alt="">CruxLog</div>
+  <nav aria-label="Idioma / Language">
+    <button type="button" data-lang="ca">Català</button>
+    <button type="button" data-lang="es">Castellano</button>
+    <button type="button" data-lang="en">English</button>
+  </nav>
+</header>
 
 <!-- ─────────────────────────── CATALÀ ─────────────────────────── -->
-<section lang="ca">
-<h1>Política de privacitat de CruxLog</h1>
-<p class="meta">Última actualització: 15 d'octubre de 2026<br>
-Responsable: Victor Pla, desenvolupador de CruxLog —
-<a href="mailto:climbingtrainingnoreply@gmail.com">climbingtrainingnoreply@gmail.com</a></p>
-
-<h2>Qui tracta les dades</h2>
-<p>CruxLog és una aplicació per registrar l'entrenament d'escalada. Les dades es desen en un servidor
-propi gestionat per qui publica l'aplicació. No es venen dades i no s'hi fa servir cap servei d'analítica.
-Els comptes bàsics (gratuïts) veuen anuncis; els premium, no (vegeu <em>Publicitat</em>).</p>
-
-<h2>Quines dades es recullen</h2>
-<p><strong>Del compte</strong>, per poder-hi entrar i recuperar-lo:</p>
-<ul>
-  <li>Nom d'usuari i adreça de correu electrònic.</li>
-  <li>Contrasenya, desada sempre xifrada amb una funció de derivació de clau; ningú no la pot llegir.</li>
-</ul>
-<p><strong>De l'entrenament</strong>, que és el contingut que la persona hi escriu:</p>
-<ul>
-  <li>Sessions: data, tipus, durada, esforç percebut, valoració, comentaris, objectiu, disciplina i lloc.</li>
-  <li>Exercicis (sèries, repeticions, càrrega) i vies (grau, intents, estil d'encadenament).</li>
-  <li>Mesures corporals opcionals: pes, massa muscular, greix i massa òssia.</li>
-  <li>Perfil d'atleta: dades antropomètriques i d'experiència que la persona decideixi introduir.</li>
-</ul>
-<p><strong>De les comunitats</strong>, si se'n crea o s'hi entra: el nom i, si se'n posen, la icona i la
-imatge de fons (triades expressament de la galeria); qui n'és membre i amb quin rol; els comentaris a les
-sessions i els missatges del xat. De les imatges se'n treuen totes les metadades (ubicació, càmera, data)
-abans de pujar-les, i el servidor també les neteja en rebre-les.</p>
-<p><strong>De l'entrenador d'IA</strong>, només si es fa servir: l'objectiu, els dies, minuts i material
-disponibles, el check-in del dia (energia, dolor i zones, temps) i les lesions que s'hi apuntin. Les lesions són
-<strong>dades de salut</strong>: només les veu el mateix compte, no surten mai a les comunitats i es poden esborrar
-en qualsevol moment. També es desen les propostes de l'entrenador i què se n'ha fet. Les calcula un servei que
-funciona al mateix servidor, sense cap tercer, i que no en desa cap dada.</p>
-<p><strong>Al dispositiu</strong> es desen el testimoni de la sessió iniciada, xifrat amb el magatzem de
-claus d'Android, i les preferències d'idioma, d'aspecte i de notificacions. No entren a cap còpia de
-seguretat al núvol.</p>
-<p><strong>Del pla premium</strong>, si es compra: el producte, les dates i l'estat de la subscripció, i el
-testimoni de compra que dona Google Play per comprovar-la. CruxLog no veu mai ni desa cap dada de pagament
-(targeta, compte bancari): el cobrament el fa Google Play.</p>
-<p>L'aplicació <strong>no</strong> recull ubicació ni contactes i no llegeix la galeria: només puja, sense
-metadades, la imatge que es tria com a icona o fons d'una comunitat. L'identificador de publicitat només el
-fan servir els anuncis dels comptes bàsics, i només amb el consentiment que es demana (vegeu
-<em>Publicitat</em>).</p>
-
-<h2>Notificacions</h2>
-<p>Si s'activen, el telèfon rep les novetats de les comunitats (sessions, comentaris, missatges, convits,
-membres nous) i les mostra com a notificació. Per avisar-lo a l'instant es fa servir <strong>Firebase Cloud
-Messaging</strong> (Google): el servidor hi envia un avís buit, sense cap dada de la persona ni del contingut,
-adreçat a un identificador del dispositiu que genera Firebase. En rebre'l, l'aplicació pregunta les novetats
-al servidor propi i les mostra. A més, una tasca del sistema hi pregunta cada quinze minuts,
-aproximadament. Es poden desactivar des de l'aplicació o des del sistema; en tancar la sessió, el
-dispositiu es dona de baixa.</p>
-
-<h2>Publicitat</h2>
-<p>Els comptes bàsics veuen un bàner d'anuncis de <strong>Google AdMob</strong>. A l'Espai Econòmic Europeu,
-abans de mostrar-ne cap, l'aplicació demana el consentiment amb el formulari de Google, i des de
-<em>Perfil → Anuncis</em> es pot canviar el que s'hi va triar. Amb consentiment, Google pot fer servir
-l'identificador de publicitat del dispositiu per personalitzar els anuncis i mesurar-los; sense, mostra
-anuncis no personalitzats. CruxLog no envia a AdMob cap dada del compte ni de l'entrenament. Els comptes
-premium no veuen anuncis i no carreguen el servei. Més informació:
-<a href="https://policies.google.com/technologies/ads">com fa servir Google les dades a la publicitat</a>.</p>
-
-<h2>Per a què es fan servir</h2>
-<p>Únicament per prestar el servei: desar el registre d'entrenament, mostrar-ne les analítiques, fer
-funcionar les comunitats i mantenir la sessió oberta. El correu s'usa per verificar el compte i restablir
-la contrasenya; no s'envien comunicacions comercials.</p>
-
-<h2>Amb qui es comparteixen</h2>
-<p>No es venen ni es cedeixen a tercers. Les dades viatgen entre l'aplicació i el servidor sempre per una
-connexió xifrada (HTTPS).</p>
-<p>L'única excepció és voluntària:</p>
-<ul>
-  <li><strong>Comunitats</strong> (voluntari): els membres es veuen entre ells el nom d'usuari i les
-    sessions d'entrenament, poden comentar-les i comparteixen un xat. Només hi entra qui accepta un convit
-    i se'n pot sortir en qualsevol moment. El correu no es mostra mai a ningú.</li>
-</ul>
-<p>Qui entra amb <strong>Google o Facebook</strong> (voluntari) fa que aquell proveïdor sàpiga que ha entrat a
-CruxLog, i CruxLog en rep l'identificador del compte i el correu verificat.</p>
-<p>Per prestar el servei, CruxLog fa servir aquests proveïdors, que tracten les dades només per encàrrec:</p>
-<ul>
-  <li><strong>Brevo</strong> (Sendinblue SAS, França): envia els correus de verificació i de recuperació de
-    contrasenya. Rep l'adreça de correu i el text del missatge.</li>
-  <li><strong>Google</strong>: Firebase Cloud Messaging (avisos al telèfon, vegeu <em>Notificacions</em>),
-    Google Play (cobrament del pla premium) i AdMob (anuncis dels comptes bàsics, vegeu
-    <em>Publicitat</em>).</li>
-</ul>
-
-<h2>Quant de temps es conserven</h2>
-<p>Mentre el compte existeixi. Des de <em>Perfil → Eliminar el compte</em> es pot eliminar el compte,
-confirmant-ho amb la contrasenya o, si es va crear amb Google o Facebook, amb el mateix proveïdor; és
-immediat i irreversible, i elimina totes les dades d'entrenament, les pertinences a comunitats, els
-comentaris i les comunitats creades per la persona. També es pot demanar l'esborrat per correu a l'adreça
-de contacte.</p>
-
-<h2>Drets</h2>
-<p>Qualsevol persona pot accedir a les seves dades, corregir-les i esborrar-les des de l'aplicació. Per a
-qualsevol altra petició (accés, portabilitat, oposició…) escriu a
-<a href="mailto:climbingtrainingnoreply@gmail.com">climbingtrainingnoreply@gmail.com</a>. També es pot
-presentar una reclamació davant l'autoritat de protecció de dades competent.</p>
-
-<h2>Menors</h2>
-<p>L'aplicació no està dirigida a menors de 13 anys i no en recull dades conscientment.</p>
-
-<h2>Canvis</h2>
-<p>Qualsevol modificació es publicarà en aquesta mateixa adreça, amb la data d'actualització al capdamunt.</p>
+<div data-lang-block="ca" lang="ca">
+<section class="hero">
+  <p class="eyebrow">Escalada · entrenament</p>
+  <h1>El registre de l'escalador que entrena amb cap.</h1>
+  <p class="lead">Apunta cada sessió de roca, rocòdrom o plafó, mira com evolucionen la forma i la fatiga, i
+  planifica la temporada sense fulls de càlcul.</p>
+  <div class="cta">
+    <a class="btn primary" href="https://app.cruxlogapp.com">Obre la web</a>
+    <a class="btn secondary" href="https://play.google.com/store/apps/details?id=cruxlog.climbingtraining.app">Google Play</a>
+  </div>
 </section>
+
+<div class="grid">
+  <div><h3>Sessions i vies</h3><p>Durada, esforç percebut, exercicis amb sèries i càrrega, vies i blocs amb grau,
+  intents i estil d'encadenament.</p></div>
+  <div><h3>Forma i fatiga</h3><p>A partir de la durada i l'esforç, CruxLog calcula la càrrega aguda i crònica i el
+  balanç de forma: saps si avui toca apretar o descansar.</p></div>
+  <div><h3>Calendari i temporada</h3><p>Vista de mes, setmana i temporada. Planificacions per blocs amb les
+  sessions que toquen cada dia.</p></div>
+  <div><h3>Entrenador d'IA</h3><p>Proposa la sessió del dia segons l'objectiu, el temps, el material i com et
+  trobes, i genera temporades senceres.</p></div>
+  <div><h3>Progrés i avaluació física</h3><p>Evolució de grau i volum, tests de força de dits i de tracció, i
+  mesures corporals si les vols apuntar.</p></div>
+  <div><h3>Comunitats i amics</h3><p>Grups amb xat, sessions compartides i comentaris, classificació setmanal
+  i missatges privats entre amics.</p></div>
+</div>
+</div>
 
 <!-- ─────────────────────────── CASTELLANO ─────────────────────────── -->
-<section lang="es">
-<h1>Política de privacidad de CruxLog</h1>
-<p class="meta">Última actualización: 15 de octubre de 2026<br>
-Responsable: Victor Pla, desarrollador de CruxLog —
-<a href="mailto:climbingtrainingnoreply@gmail.com">climbingtrainingnoreply@gmail.com</a></p>
-
-<h2>Quién trata los datos</h2>
-<p>CruxLog es una aplicación para registrar el entrenamiento de escalada. Los datos se guardan en un
-servidor propio gestionado por quien publica la aplicación. No se venden datos y no se usa ningún servicio
-de analítica. Las cuentas básicas (gratuitas) ven anuncios; las premium, no (véase <em>Publicidad</em>).</p>
-
-<h2>Qué datos se recogen</h2>
-<p><strong>De la cuenta</strong>, para poder acceder y recuperarla:</p>
-<ul>
-  <li>Nombre de usuario y dirección de correo electrónico.</li>
-  <li>Contraseña, guardada siempre cifrada con una función de derivación de clave; nadie puede leerla.</li>
-</ul>
-<p><strong>Del entrenamiento</strong>, que es el contenido que la persona escribe:</p>
-<ul>
-  <li>Sesiones: fecha, tipo, duración, esfuerzo percibido, valoración, comentarios, objetivo, disciplina y lugar.</li>
-  <li>Ejercicios (series, repeticiones, carga) y vías (grado, intentos, estilo de encadenamiento).</li>
-  <li>Medidas corporales opcionales: peso, masa muscular, grasa y masa ósea.</li>
-  <li>Perfil de atleta: datos antropométricos y de experiencia que la persona decida introducir.</li>
-</ul>
-<p><strong>De las comunidades</strong>, si se crea o se entra en alguna: el nombre y, si se ponen, el icono
-y la imagen de fondo (elegidos expresamente de la galería); quién es miembro y con qué rol; los comentarios
-en las sesiones y los mensajes del chat. De las imágenes se eliminan todos los metadatos (ubicación,
-cámara, fecha) antes de subirlas, y el servidor también las limpia al recibirlas.</p>
-<p><strong>Del entrenador de IA</strong>, solo si se usa: el objetivo, los días, minutos y material
-disponibles, el check-in del día (energía, dolor y zonas, tiempo) y las lesiones que se anoten. Las lesiones son
-<strong>datos de salud</strong>: solo las ve la propia cuenta, nunca aparecen en las comunidades y se pueden borrar
-en cualquier momento. También se guardan las propuestas del entrenador y qué se hizo con ellas. Las calcula un
-servicio que funciona en el mismo servidor, sin terceros, y que no guarda ningún dato.</p>
-<p><strong>En el dispositivo</strong> se guardan el token de la sesión iniciada, cifrado con el almacén de
-claves de Android, y las preferencias de idioma, aspecto y notificaciones. No entran en ninguna copia de
-seguridad en la nube.</p>
-<p><strong>Del plan premium</strong>, si se compra: el producto, las fechas y el estado de la suscripción, y el
-token de compra que da Google Play para comprobarla. CruxLog nunca ve ni guarda ningún dato de pago (tarjeta,
-cuenta bancaria): el cobro lo hace Google Play.</p>
-<p>La aplicación <strong>no</strong> recoge ubicación ni contactos y no lee la galería: solo sube, sin
-metadatos, la imagen elegida como icono o fondo de una comunidad. El identificador de publicidad solo lo usan
-los anuncios de las cuentas básicas, y solo con el consentimiento que se pide (véase <em>Publicidad</em>).</p>
-
-<h2>Notificaciones</h2>
-<p>Si se activan, el teléfono recibe las novedades de las comunidades (sesiones, comentarios, mensajes,
-invitaciones, miembros nuevos) y las muestra como notificación. Para avisarle al instante se usa
-<strong>Firebase Cloud Messaging</strong> (Google): el servidor envía un aviso vacío, sin ningún dato de la
-persona ni del contenido, dirigido a un identificador del dispositivo que genera Firebase. Al recibirlo, la
-aplicación pregunta las novedades al servidor propio y las muestra. Además, una tarea del sistema pregunta
-cada quince minutos, aproximadamente. Pueden desactivarse desde la aplicación o desde el sistema; al cerrar
-la sesión, el dispositivo se da de baja.</p>
-
-<h2>Publicidad</h2>
-<p>Las cuentas básicas ven un banner de anuncios de <strong>Google AdMob</strong>. En el Espacio Económico
-Europeo, antes de mostrar ninguno, la aplicación pide el consentimiento con el formulario de Google, y desde
-<em>Perfil → Anuncios</em> se puede cambiar lo elegido. Con consentimiento, Google puede usar el
-identificador de publicidad del dispositivo para personalizar los anuncios y medirlos; sin él, muestra
-anuncios no personalizados. CruxLog no envía a AdMob ningún dato de la cuenta ni del entrenamiento. Las
-cuentas premium no ven anuncios ni cargan el servicio. Más información:
-<a href="https://policies.google.com/technologies/ads">cómo usa Google los datos en la publicidad</a>.</p>
-
-<h2>Para qué se usan</h2>
-<p>Únicamente para prestar el servicio: guardar el registro de entrenamiento, mostrar sus analíticas, hacer
-funcionar las comunidades y mantener la sesión abierta. El correo se usa para verificar la cuenta y
-restablecer la contraseña; no se envían comunicaciones comerciales.</p>
-
-<h2>Con quién se comparten</h2>
-<p>No se venden ni se ceden a terceros. Los datos viajan entre la aplicación y el servidor siempre por una
-conexión cifrada (HTTPS).</p>
-<p>La única excepción es voluntaria:</p>
-<ul>
-  <li><strong>Comunidades</strong> (voluntario): los miembros ven entre sí el nombre de usuario y las
-    sesiones de entrenamiento, pueden comentarlas y comparten un chat. Solo entra quien acepta una
-    invitación, y se puede salir en cualquier momento. El correo nunca se muestra a nadie.</li>
-</ul>
-<p>Quien entra con <strong>Google o Facebook</strong> (voluntario) hace que ese proveedor sepa que ha entrado en
-CruxLog, y CruxLog recibe el identificador de la cuenta y el correo verificado.</p>
-<p>Para prestar el servicio, CruxLog usa estos proveedores, que tratan los datos solo por encargo:</p>
-<ul>
-  <li><strong>Brevo</strong> (Sendinblue SAS, Francia): envía los correos de verificación y de recuperación de
-    contraseña. Recibe la dirección de correo y el texto del mensaje.</li>
-  <li><strong>Google</strong>: Firebase Cloud Messaging (avisos en el teléfono, véase
-    <em>Notificaciones</em>), Google Play (cobro del plan premium) y AdMob (anuncios de las cuentas básicas,
-    véase <em>Publicidad</em>).</li>
-</ul>
-
-<h2>Cuánto tiempo se conservan</h2>
-<p>Mientras exista la cuenta. Desde <em>Perfil → Eliminar la cuenta</em> se puede eliminar, confirmándolo
-con la contraseña o, si se creó con Google o Facebook, con el mismo proveedor; es inmediato e
-irreversible, y elimina todos los datos de entrenamiento, las membresías, los comentarios y las comunidades
-creadas por la persona. También puede solicitarse el borrado por correo a la dirección de contacto.</p>
-
-<h2>Derechos</h2>
-<p>Cualquier persona puede acceder a sus datos, corregirlos y borrarlos desde la aplicación. Para cualquier
-otra solicitud (acceso, portabilidad, oposición…) escribe a
-<a href="mailto:climbingtrainingnoreply@gmail.com">climbingtrainingnoreply@gmail.com</a>. También puede
-presentarse una reclamación ante la autoridad de protección de datos competente.</p>
-
-<h2>Menores</h2>
-<p>La aplicación no está dirigida a menores de 13 años y no recoge conscientemente sus datos.</p>
-
-<h2>Cambios</h2>
-<p>Cualquier modificación se publicará en esta misma dirección, con la fecha de actualización al principio.</p>
+<div data-lang-block="es" lang="es">
+<section class="hero">
+  <p class="eyebrow">Escalada · entrenamiento</p>
+  <h1>El registro del escalador que entrena con cabeza.</h1>
+  <p class="lead">Apunta cada sesión de roca, rocódromo o plafón, mira cómo evolucionan la forma y la fatiga, y
+  planifica la temporada sin hojas de cálculo.</p>
+  <div class="cta">
+    <a class="btn primary" href="https://app.cruxlogapp.com">Abre la web</a>
+    <a class="btn secondary" href="https://play.google.com/store/apps/details?id=cruxlog.climbingtraining.app">Google Play</a>
+  </div>
 </section>
+
+<div class="grid">
+  <div><h3>Sesiones y vías</h3><p>Duración, esfuerzo percibido, ejercicios con series y carga, vías y bloques con
+  grado, intentos y estilo de encadenamiento.</p></div>
+  <div><h3>Forma y fatiga</h3><p>A partir de la duración y el esfuerzo, CruxLog calcula la carga aguda y crónica y
+  el balance de forma: sabes si hoy toca apretar o descansar.</p></div>
+  <div><h3>Calendario y temporada</h3><p>Vista de mes, semana y temporada. Planificaciones por bloques con las
+  sesiones de cada día.</p></div>
+  <div><h3>Entrenador de IA</h3><p>Propone la sesión del día según el objetivo, el tiempo, el material y cómo te
+  encuentras, y genera temporadas enteras.</p></div>
+  <div><h3>Progreso y evaluación física</h3><p>Evolución de grado y volumen, tests de fuerza de dedos y de
+  tracción, y medidas corporales si quieres apuntarlas.</p></div>
+  <div><h3>Comunidades y amigos</h3><p>Grupos con chat, sesiones compartidas y comentarios, clasificación semanal
+  y mensajes privados entre amigos.</p></div>
+</div>
+</div>
 
 <!-- ─────────────────────────── ENGLISH ─────────────────────────── -->
-<section lang="en">
-<h1>CruxLog Privacy Policy</h1>
-<p class="meta">Last updated: 15 October 2026<br>
-Controller: Victor Pla, developer of CruxLog —
-<a href="mailto:climbingtrainingnoreply@gmail.com">climbingtrainingnoreply@gmail.com</a></p>
-
-<h2>Who handles the data</h2>
-<p>CruxLog is an app for logging climbing training. Data is stored on a private server run by the app's
-publisher. No data is sold and no analytics services are used. Basic (free) accounts see ads; premium
-accounts don't (see <em>Advertising</em>).</p>
-
-<h2>What data is collected</h2>
-<p><strong>Account</strong>, so you can sign in and recover it:</p>
-<ul>
-  <li>Username and email address.</li>
-  <li>Password, always stored hashed with a key-derivation function; nobody can read it.</li>
-</ul>
-<p><strong>Training</strong>, i.e. the content you enter:</p>
-<ul>
-  <li>Sessions: date, type, duration, perceived effort, rating, notes, goal, discipline and location.</li>
-  <li>Exercises (sets, reps, load) and routes (grade, attempts, ascent style).</li>
-  <li>Optional body measurements: weight, muscle mass, fat and bone mass.</li>
-  <li>Athlete profile: anthropometric and experience data you choose to enter.</li>
-</ul>
-<p><strong>Communities</strong>, if you create or join one: its name and, if set, its icon and background
-image (explicitly picked from your gallery); who its members are and their role; comments on sessions and
-chat messages. All metadata (location, camera, date) is removed from images before they are uploaded, and
-the server strips it again when it receives them.</p>
-<p><strong>From the AI coach</strong>, only if you use it: your goal, available days, minutes and
-equipment, the daily check-in (energy, pain and where, time) and any injuries you record. Injuries are
-<strong>health data</strong>: only your own account can see them, they never appear in communities and you can
-delete them at any time. The coach's proposals and what you did with them are also stored. They are computed by
-a service running on the same server, with no third parties, which keeps none of the data.</p>
-<p><strong>On the device</strong> the app stores your session token, encrypted with the Android keystore,
-and your language, appearance and notification preferences. They are excluded from cloud backups.</p>
-<p><strong>Premium plan</strong>, if you buy it: the product, the subscription's dates and status, and the
-purchase token Google Play provides to verify it. CruxLog never sees or stores any payment details (card,
-bank account): Google Play handles the payment.</p>
-<p>The app does <strong>not</strong> collect location or contacts and does not read your gallery: it only
-uploads, without metadata, the image you choose as a community icon or background. The advertising
-identifier is only used by the ads shown to basic accounts, and only with the consent the app asks for (see
-<em>Advertising</em>).</p>
-
-<h2>Notifications</h2>
-<p>If enabled, your phone receives community updates (sessions, comments, messages, invitations, new
-members) and shows them as notifications. To alert it instantly, <strong>Firebase Cloud Messaging</strong>
-(Google) is used: the server sends an empty alert, with no personal data or content, addressed to a device
-identifier generated by Firebase. When it arrives, the app asks its own server for updates and shows them.
-A system task also checks roughly every fifteen minutes. You can turn them off in the app or in system
-settings; signing out unregisters the device.</p>
-
-<h2>Advertising</h2>
-<p>Basic accounts see a <strong>Google AdMob</strong> banner. In the European Economic Area, before showing
-any ad, the app asks for consent with Google's form, and you can change your choice under <em>Profile →
-Ads</em>. With consent, Google may use the device's advertising identifier to personalise and measure ads;
-without it, it shows non-personalised ads. CruxLog sends no account or training data to AdMob. Premium
-accounts see no ads and don't load the service. More information:
-<a href="https://policies.google.com/technologies/ads">how Google uses data in advertising</a>.</p>
-
-<h2>What it is used for</h2>
-<p>Only to provide the service: storing your training log, showing its analytics, running communities and
-keeping you signed in. Email is used to verify the account and reset the password; no marketing messages
-are sent.</p>
-
-<h2>Who it is shared with</h2>
-<p>Data is not sold or transferred to third parties. It always travels between the app and the server over
-an encrypted connection (HTTPS).</p>
-<p>The only exception is opt-in:</p>
-<ul>
-  <li><strong>Communities</strong> (opt-in): members see each other's username and training sessions, can
-    comment on them and share a chat. Only people who accept an invitation join, and you can leave at any
-    time. Your email is never shown to anyone.</li>
-</ul>
-<p>If you sign in with <strong>Google or Facebook</strong> (opt-in), that provider learns that you signed in to
-CruxLog, and CruxLog receives your account identifier and verified email.</p>
-<p>To provide the service, CruxLog uses these processors, which handle data only on its behalf:</p>
-<ul>
-  <li><strong>Brevo</strong> (Sendinblue SAS, France): sends the verification and password-reset emails. It
-    receives your email address and the message text.</li>
-  <li><strong>Google</strong>: Firebase Cloud Messaging (phone alerts, see <em>Notifications</em>), Google
-    Play (premium plan payments) and AdMob (ads for basic accounts, see <em>Advertising</em>).</li>
-</ul>
-
-<h2>How long it is kept</h2>
-<p>For as long as the account exists. You can delete it from <em>Profile → Delete account</em>, confirming
-with your password or, if the account was created with Google or Facebook, with that same provider; this is
-immediate and irreversible and removes all training data, community memberships, comments and communities
-you created. You can also request deletion by email at the contact address.</p>
-
-<h2>Your rights</h2>
-<p>You can access, correct and delete your data from within the app. For any other request (access,
-portability, objection…) write to
-<a href="mailto:climbingtrainingnoreply@gmail.com">climbingtrainingnoreply@gmail.com</a>. You may also
-lodge a complaint with the competent data protection authority.</p>
-
-<h2>Children</h2>
-<p>The app is not directed at children under 13 and does not knowingly collect their data.</p>
-
-<h2>Changes</h2>
-<p>Any changes will be published at this same address, with the update date at the top.</p>
+<div data-lang-block="en" lang="en">
+<section class="hero">
+  <p class="eyebrow">Climbing · training</p>
+  <h1>The training log for climbers who train with a plan.</h1>
+  <p class="lead">Log every session at the crag, the gym or the board, see how fitness and fatigue evolve, and
+  plan your season without spreadsheets.</p>
+  <div class="cta">
+    <a class="btn primary" href="https://app.cruxlogapp.com">Open the web app</a>
+    <a class="btn secondary" href="https://play.google.com/store/apps/details?id=cruxlog.climbingtraining.app">Google Play</a>
+  </div>
 </section>
+
+<div class="grid">
+  <div><h3>Sessions and routes</h3><p>Duration, perceived effort, exercises with sets and load, routes and
+  boulders with grade, attempts and ascent style.</p></div>
+  <div><h3>Fitness and fatigue</h3><p>From duration and effort, CruxLog computes acute and chronic load and your
+  form balance: you know whether today is a day to push or to rest.</p></div>
+  <div><h3>Calendar and season</h3><p>Month, week and season views. Block-based plans with the sessions due
+  each day.</p></div>
+  <div><h3>AI coach</h3><p>Suggests today's session from your goal, time, equipment and how you feel, and builds
+  whole seasons.</p></div>
+  <div><h3>Progress and testing</h3><p>Grade and volume over time, finger-strength and pulling tests, and body
+  measurements if you want to log them.</p></div>
+  <div><h3>Communities and friends</h3><p>Groups with chat, shared sessions and comments, a weekly leaderboard
+  and private messages between friends.</p></div>
+</div>
+</div>
+
+<!-- Captures: les mateixes per als tres idiomes. -->
+<div class="shots">
+  <img src="img/inici.jpg" width="390" height="844" alt="Inici: balanç de forma i sessions de la setmana" loading="lazy">
+  <img src="img/calendari.jpg" width="390" height="844" alt="Calendari del mes" loading="lazy">
+  <img src="img/progres.jpg" width="390" height="844" alt="Progrés de grau i volum" loading="lazy">
+  <img src="img/coach.jpg" width="390" height="844" alt="Entrenador d'IA" loading="lazy">
+  <img src="img/comunitat.jpg" width="390" height="844" alt="Comunitat amb sessions compartides" loading="lazy">
+</div>
+
+<!-- ─────────────────────────── CATALÀ ─────────────────────────── -->
+<div data-lang-block="ca" lang="ca">
+<h2>Plans</h2>
+<div class="plans">
+  <div class="plan">
+    <h3>Bàsic</h3>
+    <p class="price">0 € <small>per sempre</small></p>
+    <p class="note">Tot el registre, les analítiques bàsiques, el calendari i les comunitats. Amb un bàner d'anuncis.</p>
+  </div>
+  <div class="plan premium">
+    <h3>Premium</h3>
+    <p class="price">3,99 € <small>/ mes a la web</small></p>
+    <p class="note">o 29,99 € / any. A l'app d'Android: 4,79 € / mes o 35,99 € / any, amb Google Play.</p>
+    <ul>
+      <li>Sense anuncis</li>
+      <li>Entrenador d'IA: sessions i temporades</li>
+      <li>Analítiques de càrrega i forma</li>
+      <li>Més planificacions, exercicis propis i comunitats</li>
+    </ul>
+  </div>
+</div>
+<p class="note">Es cancel·la quan vulguis i continua actiu fins al final del període pagat. Vegeu les
+<a href="terms.html#ca">condicions</a>.</p>
+
+<h2>Les teves dades</h2>
+<p>Les dades es desen en un servidor propi, no es venen i no hi ha analítica de tercers. Pots eliminar el compte
+des de l'app quan vulguis. Detalls a la <a href="privacy.html#ca">política de privacitat</a>.</p>
+
+<footer>
+  <a href="privacy.html#ca">Privacitat</a>
+  <a href="terms.html#ca">Condicions</a>
+  <a href="delete-account.html#ca">Eliminar el compte</a>
+  <a href="mailto:climbingtrainingnoreply@gmail.com">Contacte</a>
+</footer>
+</div>
+
+<!-- ─────────────────────────── CASTELLANO ─────────────────────────── -->
+<div data-lang-block="es" lang="es">
+<h2>Planes</h2>
+<div class="plans">
+  <div class="plan">
+    <h3>Básico</h3>
+    <p class="price">0 € <small>para siempre</small></p>
+    <p class="note">Todo el registro, las analíticas básicas, el calendario y las comunidades. Con un banner de anuncios.</p>
+  </div>
+  <div class="plan premium">
+    <h3>Premium</h3>
+    <p class="price">3,99 € <small>/ mes en la web</small></p>
+    <p class="note">o 29,99 € / año. En la app de Android: 4,79 € / mes o 35,99 € / año, con Google Play.</p>
+    <ul>
+      <li>Sin anuncios</li>
+      <li>Entrenador de IA: sesiones y temporadas</li>
+      <li>Analíticas de carga y forma</li>
+      <li>Más planificaciones, ejercicios propios y comunidades</li>
+    </ul>
+  </div>
+</div>
+<p class="note">Se cancela cuando quieras y sigue activo hasta el final del periodo pagado. Consulta las
+<a href="terms.html#es">condiciones</a>.</p>
+
+<h2>Tus datos</h2>
+<p>Los datos se guardan en un servidor propio, no se venden y no hay analítica de terceros. Puedes eliminar la
+cuenta desde la app cuando quieras. Detalles en la <a href="privacy.html#es">política de privacidad</a>.</p>
+
+<footer>
+  <a href="privacy.html#es">Privacidad</a>
+  <a href="terms.html#es">Condiciones</a>
+  <a href="delete-account.html#es">Eliminar la cuenta</a>
+  <a href="mailto:climbingtrainingnoreply@gmail.com">Contacto</a>
+</footer>
+</div>
+
+<!-- ─────────────────────────── ENGLISH ─────────────────────────── -->
+<div data-lang-block="en" lang="en">
+<h2>Plans</h2>
+<div class="plans">
+  <div class="plan">
+    <h3>Basic</h3>
+    <p class="price">€0 <small>forever</small></p>
+    <p class="note">The full log, basic analytics, the calendar and communities. With an ad banner.</p>
+  </div>
+  <div class="plan premium">
+    <h3>Premium</h3>
+    <p class="price">€3.99 <small>/ month on the web</small></p>
+    <p class="note">or €29.99 / year. In the Android app: €4.79 / month or €35.99 / year, through Google Play.</p>
+    <ul>
+      <li>No ads</li>
+      <li>AI coach: sessions and seasons</li>
+      <li>Load and form analytics</li>
+      <li>More plans, custom exercises and communities</li>
+    </ul>
+  </div>
+</div>
+<p class="note">Cancel any time; it stays active until the end of the paid period. See the
+<a href="terms.html#en">terms</a>.</p>
+
+<h2>Your data</h2>
+<p>Data is stored on a private server, it is never sold and there are no third-party analytics. You can delete
+your account from the app at any time. Details in the <a href="privacy.html#en">privacy policy</a>.</p>
+
+<footer>
+  <a href="privacy.html#en">Privacy</a>
+  <a href="terms.html#en">Terms</a>
+  <a href="delete-account.html#en">Delete account</a>
+  <a href="mailto:climbingtrainingnoreply@gmail.com">Contact</a>
+</footer>
+</div>
 </main>
 <script>
   (function () {
     var langs = ["ca", "es", "en"];
     function show(lang) {
-      document.querySelectorAll("section[lang]").forEach(function (s) {
-        s.classList.toggle("active", s.lang === lang);
+      document.querySelectorAll("[data-lang-block]").forEach(function (s) {
+        s.classList.toggle("active", s.dataset.langBlock === lang);
       });
       document.querySelectorAll("nav button").forEach(function (b) {
         b.setAttribute("aria-pressed", String(b.dataset.lang === lang));
